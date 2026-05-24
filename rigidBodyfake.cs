@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class rigidBodyfake : MonoBehaviour
 {
+    [SerializeField] //dung de tao bien//
+    private float JumpForce = 5f; // float dung de nhan vat nhay//
     private float velocityY = 0f; // Huong duoc keo
     [SerializeField]
     private float gravity = -9.8f; // Trong luc keo xuong
@@ -29,6 +31,7 @@ public class rigidBodyfake : MonoBehaviour
         }
 
         UpdatePhysics();
+        Handlejump();
     }
     private bool CheckIfGrounded()// check player co tren mat dat khong
     {
@@ -49,5 +52,12 @@ public class rigidBodyfake : MonoBehaviour
         Vector3 currentPosition = transform.position;
         currentPosition.y += velocityY * Time.deltaTime;
         transform.position = currentPosition;
+    }
+    private void Handlejump()//quan li viec nhay
+    {
+        if(Input.GetKeyDown(KeyCode.Space) && isGrounded)// kiem tra khi player an space va co cham mat dat khong
+        {
+        velocityY = JumpForce;
+        }
     }
 }
