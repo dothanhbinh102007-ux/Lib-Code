@@ -15,6 +15,10 @@ public class rigidBodyfake : MonoBehaviour
     private float groundCheckRadius = 0.2f; // ban kinh de kiem tra//
     [SerializeField]
     private LayerMask Ground; // dat vai cho cho vat nao la mat dat//
+    [SerializeField] private float Move;
+    [SerializeField] private float Speed;
+    // private float playerSpeed = 5f; //dieu chinh toc do cua nguoi choi [code toi uu dong 20 21]
+    // Vector2 Movingvelocity;
     void Start()
     {
         
@@ -32,6 +36,7 @@ public class rigidBodyfake : MonoBehaviour
 
         UpdatePhysics();
         Handlejump();
+        MovingHandle();
     }
     private bool CheckIfGrounded()// check player co tren mat dat khong
     {
@@ -48,9 +53,9 @@ public class rigidBodyfake : MonoBehaviour
         {
             velocityY += gravity * Time.deltaTime;
         }
-
         Vector3 currentPosition = transform.position;
         currentPosition.y += velocityY * Time.deltaTime;
+        // currentPosition.x += Movingvelocity.x * Time.deltaTime; [danh cho di chuyen toi uu ]
         transform.position = currentPosition;
     }
     private void Handlejump()//quan li viec nhay
@@ -59,5 +64,29 @@ public class rigidBodyfake : MonoBehaviour
         {
         velocityY = JumpForce;
         }
+    }
+    // private void MovingHandle() di chuyen theo cach toi uu
+    // {
+    //     {
+    //     float Move = Input.GetAxisRaw("Horizontal");
+
+    //     Movingvelocity = new Vector2(Move * playerSpeed, 0);
+    //     }
+    // }
+    private void MovingHandle() //Di chuyen theo basic
+    {
+        if (Input.GetKey(KeyCode.A))
+        {
+            Move = -1;
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            Move = 1;
+        }
+        else
+        {
+            Move = 0;
+        }
+        transform.Translate(Vector3.right*Move*Speed*Time.deltaTime);
     }
 }
