@@ -27,9 +27,9 @@ public class parallax : MonoBehaviour
     }
     private void PrallaxScroll()
     {
-            float deltaX = mainCamera.transform.position.x - lastCameraX;
+            float posX = mainCamera.transform.position.x - lastCameraX;
             Vector2 offset = material.GetTextureOffset("_MainTex");
-            offset.x += deltaX * ParallaxFactor;
+            offset.x += posX * ParallaxFactor;
             material.SetTextureOffset("_MainTex", offset);
             lastCameraX = mainCamera.transform.position.x;
 
